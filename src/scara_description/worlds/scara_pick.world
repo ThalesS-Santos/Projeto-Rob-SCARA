@@ -1,0 +1,77 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="scara_world">
+
+    <plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so"/>
+    <plugin name="scara_grasp" filename="libscara_grasp_plugin.so"/>
+
+    <gui fullscreen="0">
+      <camera name="scara_camera">
+        <pose>1.3 -1.3 1.1 0 0.45 2.356</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- Objeto para pegar: cubo vermelho -->
+    <model name="caixa_a">
+      <static>false</static>
+      <pose>0.38 0.22 0.015 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box><size>0.03 0.03 0.03</size></box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box><size>0.03 0.03 0.03</size></box>
+          </geometry>
+          <material>
+            <ambient>0.8 0.1 0.1 1</ambient>
+            <diffuse>0.8 0.1 0.1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <inertial>
+          <mass>0.05</mass>
+          <inertia>
+            <ixx>0.000001</ixx><ixy>0</ixy><ixz>0</ixz>
+            <iyy>0.000001</iyy><iyz>0</iyz>
+            <izz>0.000001</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- Zona de entrega: disco azul no chao -->
+    <model name="zona_entrega">
+      <static>true</static>
+      <pose>-0.37 -0.25 0.002 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <cylinder><radius>0.05</radius><length>0.004</length></cylinder>
+          </geometry>
+          <material>
+            <ambient>0.1 0.1 0.8 0.8</ambient>
+            <diffuse>0.1 0.1 0.8 0.8</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry>
+            <cylinder><radius>0.05</radius><length>0.004</length></cylinder>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+
+  </world>
+</sdf>
